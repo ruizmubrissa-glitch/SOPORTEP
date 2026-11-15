@@ -1,0 +1,60 @@
+﻿
+
+
+create database SOPORTE
+
+use SOPORTE
+
+create table usuarios
+(
+    usuarioid int primary key,
+    nombre varchar(50) not null,
+    correoelectronico varchar(100) not null,
+    telefono varchar(20) null
+)
+
+create table tecnicos
+(
+    tecnicoid int primary key,
+    nombre varchar(50) not null,
+    especialidad varchar(50) not null
+)
+
+create table equipos
+(
+    equipoid int primary key,
+    tipoequipo varchar(30) not null,
+    modelo varchar(30) not null,
+    usuarioid int foreign key references usuarios(usuarioid) 
+)
+
+-- DML Lenguaje de manipulacion de datos (insert, update, delete, select)
+-- Insert Agregar registros
+insert into usuarios (usuarioid, nombre, correoelectronico, telefono)
+values (1, 'Ana Curling', 'ana@email.com', '8888-8888'),
+       (2, 'Carlos Gomez', 'carlos@email.com', '7777-7777')
+
+insert into tecnicos (tecnicoid, nombre, especialidad)
+values (1, 'Luis Perez', 'Redes y Conectividad'),
+       (2, 'Maria Soto', 'Mantenimiento de Hardware')
+
+insert into equipos (equipoid, tipoequipo, modelo, usuarioid)
+values (10, 'Laptop', 'Dell Latitude', 1),
+       (20, 'Computadora de Escritorio', 'HP Pavilion', 2)
+
+-- Select para consultas
+select tecnicoid, nombre, especialidad from tecnicos
+select * from equipos
+select * from equipos where usuarioid = 1
+select * from tecnicos where especialidad like '%Hardware%'
+
+-- update Actualizar registros
+update equipos set modelo = 'Dell XPS 15', tipoequipo = 'Laptop Pro' where equipoid = 10
+select * from equipos
+
+update tecnicos set especialidad = 'Soporte Técnico Avanzado' where tecnicoid = 1
+select * from tecnicos
+
+-- delete eliminar registros
+delete from equipos where equipoid = 20
+delete from tecnicos where tecnicoid = 2
